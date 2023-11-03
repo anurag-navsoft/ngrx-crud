@@ -59,6 +59,16 @@
       "address": "Sitalpur",
       "type": "CUSTOMER",
       "status": true
+    },
+    {
+      "id": 11,
+      "name": "Pankaj",
+      "email": "pankaj@gmail.com",
+      "phone": "9832637557",
+      "associategroup": "level1",
+      "address": "Sitalpur",
+      "type": "CUSTOMER",
+      "status": true
     }
   ]
 }
