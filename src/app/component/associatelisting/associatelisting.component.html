@@ -53,7 +53,7 @@
     </mat-card-content>
     <br>
     <mat-card-footer>
-        <mat-paginator [pageSizeOptions]="[5,10,50]" [pageIndex]="pageIndex" [length]="length" [pageSize]="pageSize"
-            showFirstLastButtons (page)="handlePageEvent($event)"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex" [length]="length"
+            [pageSize]="pageSize" showFirstLastButtons (page)="handlePageEvent($event)"></mat-paginator>
     </mat-card-footer>
 </mat-card>

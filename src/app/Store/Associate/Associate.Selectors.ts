@@ -10,3 +10,7 @@ export const getassociatelist = createSelector(getassociatestate, (state) => {
 export const getassociate = createSelector(getassociatestate, (state) => {
     return state.associateobj;
 })
+
+export const getPagination = createSelector(getassociatestate, (state) => {
+    return state.pagination;
+})

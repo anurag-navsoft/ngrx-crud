@@ -3,8 +3,8 @@ import { MatDialog } from "@angular/material/dialog"
 import { AddassociateComponent } from '../addassociate/addassociate.component';
 import { Store } from '@ngrx/store';
 import { Associates } from 'src/app/Store/Model/Associate.model';
-import { getassociatelist } from 'src/app/Store/Associate/Associate.Selectors';
-import { deleteeassociate, getassociate, loadassociate, openpopup } from 'src/app/Store/Associate/Associate.Action';
+import { getPagination, getassociatelist } from 'src/app/Store/Associate/Associate.Selectors';
+import { changePage, deleteeassociate, getassociate, loadassociate, openpopup } from 'src/app/Store/Associate/Associate.Action';
 import { MatTableDataSource } from "@angular/material/table"
 import { MatPaginator } from "@angular/material/paginator"
 import { MatSort } from "@angular/material/sort"
@@ -21,6 +21,7 @@ export class AssociatelistingComponent implements OnInit {
   pageSize:number = 5;
   pageIndex:number = 0;
   length!:number
+  pageSizeOptions = [5,10,15]
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -33,9 +34,16 @@ export class AssociatelistingComponent implements OnInit {
     this.store.select(getassociatelist).subscribe(item => {
       this.Asociatelist = item;
       this.datasource = new MatTableDataSource<Associates>(this.Asociatelist);
+      console.log("this.datasource.paginator-->",this.datasource.paginator)
       this.datasource.paginator = this.paginator;
       this.datasource.sort = this.sort;
     });
+    this.store.select(getPagination).subscribe(paginationData => {
+    this.pageSize = paginationData.pageSize;
+    this.pageIndex =paginationData.pageIndex;
+    this.length = paginationData.totalItem;
+    this.pageSizeOptions = paginationData.pageSizeoption;
+    })
   }
 
   FunctionAdd() {
@@ -64,6 +72,14 @@ export class AssociatelistingComponent implements OnInit {
     })
   }
   handlePageEvent(event:any){
+    
     console.log("event-->",event)
+    const paginationData = {
+      pageIndex:event.pageIndex,
+      totalItem:event.length,
+      pageSize:event.pageSize,
+      pageSizeoption:this.pageSizeOptions
+    }
+    this.store.dispatch(changePage({ pagination: paginationData }))
   }
 }
