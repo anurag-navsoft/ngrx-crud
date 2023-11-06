@@ -1,12 +1,19 @@
 import { createReducer, on } from "@ngrx/store";
 import { AssociateState } from "./Associate.State";
-import { addassociatesuccess, deleteassociatesuccess, getassociatesuccess, loadassociatefail, loadassociatesuccess, openpopup, updateassociatesuccess } from "./Associate.Action";
+import { addassociatesuccess, changePage, deleteassociatesuccess, getassociatesuccess, loadassociatefail, loadassociatesuccess, openpopup, updateassociatesuccess } from "./Associate.Action";
 
 const _AssociateReducer = createReducer(AssociateState,
     on(loadassociatesuccess, (state, action) => {
         return {
             ...state,
             list: [...action.list],
+            errormessage: ''
+        }
+    }),
+    on(changePage, (state, action) => {
+        return {
+            ...state,
+            pagination: action.pagination,
             errormessage: ''
         }
     }),

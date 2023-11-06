@@ -8,9 +8,16 @@ export interface Associates{
     associategroup:string,
     status:boolean
 }
+export interface Pagination{
+    pageIndex:number,
+    totalItem:number,
+    pageSize:number,
+    pageSizeoption:number[]
+}
 
 export interface AssociateModel{
     list:Associates[],
     associateobj:Associates,
     errormessage:string
+    pagination:Pagination
 }
